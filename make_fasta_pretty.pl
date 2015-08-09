@@ -16,10 +16,12 @@ if (@ARGV < 2) {
 my ($inFile, $outFile) = @ARGV;
 my $fastaIn = Bio::SeqIO->new(-file => $inFile,
                               -format => 'fasta');
-my $seqObj = $fastaIn->next_seq;
 my $fastaOut = Bio::SeqIO->new(-file => '>' . $outFile,
                                -format => 'fasta');
-$fastaOut->write_seq($seqObj);
+
+while (my $seqObj = $fastaIn->next_seq) {                           
+    $fastaOut->write_seq($seqObj);
+}
 
 
 
